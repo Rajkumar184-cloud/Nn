@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live TV Player</title>
+  <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #playerWrapper {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      margin-top: 20px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .live-indicator {
+      position: absolute;
+      bottom: 280px;
+      left: 9px;
+      background: red;
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 3px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-indicator::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .channels {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .channel {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .channel img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      transition: transform 0.3s;
+    }
+
+    .channel:hover img {
+      transform: scale(1.1);
+    }
+
+    .channel span {
+      display: block;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="playerWrapper">
+    <div id="player"></div>
+    <div class="live-indicator">RAJ</div>
+  </div>
+
+  <div class="channels">
+    <!-- Replace logos and links with your own -->
+    <div class="channel" onclick="loadChannel('https://re.fredflix.fun/tata/sony_max/playlist.m3u8')">
+      <img src="https://i.postimg.cc/Ss7QvWxV/images-2.jpg">
+      <span>sony max</span>
+    </div>
+    
+    <div class="channel" onclick="loadChannel('https://re.fredflix.fun/tata/sony_ten3hd/playlist.m3u8')">
+      <img src="https://i.postimg.cc/RCdV1Q8Z/images-4.jpg">
+      <span>sony ten3 hd</span>
+    </div>
+    
+    <div class="channel" onclick="loadChannel('https://re.fredflix.fun/tata/sony_aath/playlist.m3u8')">
+      <img src="https://i.postimg.cc/tRPFTyNC/images-1.jpg">
+      <span>sony aath</span>
+    </div>
+    
+    <div class="channel" onclick="loadChannel('https://re.fredflix.fun/tata/sony_yay/playlist.m3u8')">
+      <img src="https://i.postimg.cc/J7H524Y9/1-new-1-1-sony-yay-logo-b0-2024-03-15-15-12-23-0-2024-04-22-11-36-45-0-2024-09-11-16-11-11.gif">
+      <span>sony yay</span>
+    </div>
+
+    <div class="channel" onclick="loadChannel('https://re.fredflix.fun/tata/sony_max_hd/playlist.m3u8')">
+      <img src="https://i.postimg.cc/xd9mj9RT/images-3.jpg">
+      <span>sony max hd</span>
+    </div>
+    
+     <div class="channel" onclick="loadChannel('http://kst.moonplex.net:8080/CH4/tracks-v1a1/mono.m3u8')">
+      <img src="https://i.postimg.cc/NjkcYgcf/images-5.jpg">
+      <span>zee bangla</span>
+    </div>
+    
+    <div class="channel" onclick="loadChannel('http://kst.moonplex.net:8080/CH3/tracks-v1a1/mono.m3u8')">
+      <img src="https://i.postimg.cc/63gszqdz/Star-Jalsha-logo-2023.png">
+      <span>star jalsha</span>
+    </div>
+    
+     <div class="channel" onclick="loadChannel('http://kst.moonplex.net:8080/CH2/tracks-v1a1/mono.m3u8')">
+      <img src="https://i.postimg.cc/L4yZCXDX/1719127161-LIVE.jpg">
+      <span>t sports</span>
+    </div>
+    
+    <div class="channel" onclick="loadChannel('https://streamapip.vercel.app/stream/xfireflix/f1e1b6c8-9a1b-492d-bdf9-b63295e6073e.m3u8')">
+      <img src="https://i.postimg.cc/L4yZCXDX/1719127161-LIVE.jpg">
+      <span>t sports</span>
+    </div>
+
+    <!-- Add 8 more as needed -->
+  </div>
+
+  <script>
+    const defaultStream = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+
+    const player = jwplayer("player").setup({
+      file: defaultStream,
+      width: "100%",
+      aspectratio: "16:9",
+      autostart: true,
+      controls: true,
+      hlshtml: true,
+      preload: "auto"
+    });
+
+    function loadChannel(url) {
+      player.load([{ file: url }]);
+      player.play();
+    }
+  </script>
+
+</body>
+</html>
